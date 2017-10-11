@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Filmes populares</string>
+    <string name="accessibility_poster_thumbnail">Uma miniatura que contêm o poster do filme</string>
+    <string name="error_message">Não foi possível carregar os dados dos filmes, por favor tente novamente mais tarde.</string>
+    <string name="sort_option_popularity">Populares</string>
+    <string name="sort_option_rating">Recomendados</string>
+    <string name="details_rating">Nota dos usuários:</string>
+    <string name="details_release_date">Data de lançamento:</string>
+    <string name="sort_spinner_title">Seletor</string>
+    <string name="details_synopsis">Sinópse:</string>
+</resources>
