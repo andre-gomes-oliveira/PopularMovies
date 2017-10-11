@@ -1,0 +1,12 @@
+# PopularMovies
+
+In order for the application to function, a valid API KEy for the Movie DB API must be provided.
+
+You can sign up for an account, and request an API key, here:
+https://www.themoviedb.org/account/signup
+
+The application expects the value of the API key to be set in following file:
+PopularMovies\app\src\main\java\popularmovies\udacity\com\br\popularmovies\utilities
+
+It should be set in the variable "key" in line 26
+
