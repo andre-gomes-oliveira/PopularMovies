@@ -15,7 +15,7 @@
     </string-array>
 
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
-    <string name="sort_query_popularity" translatable="false">popularity.desc</string>
-    <string name="sort_query_rating" translatable="false">vote_average.desc</string>
+    <string name="endpoint_popularity" translatable="false">/popular</string>
+    <string name="endpoint_rating" translatable="false">/top_rated</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
 </resources>

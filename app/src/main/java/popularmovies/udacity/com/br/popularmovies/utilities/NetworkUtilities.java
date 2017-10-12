@@ -24,13 +24,11 @@ public final class NetworkUtilities {
     /* Base URLs*/
     private static final String api = "api_key";
     private static final String key = "";
-    private static final String sort_by = "sort_by";
-    private static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie";
 
-    public static URL buildMoviesUrl(String sort) {
-        Uri builtUri = Uri.parse(BASE_MOVIE_URL).buildUpon()
+    public static URL buildMoviesUrl(String endpoint) {
+        Uri builtUri = Uri.parse(BASE_MOVIE_URL + endpoint).buildUpon()
                 .appendQueryParameter(api, key)
-                .appendQueryParameter(sort_by, sort)
                 .build();
 
         URL url = null;

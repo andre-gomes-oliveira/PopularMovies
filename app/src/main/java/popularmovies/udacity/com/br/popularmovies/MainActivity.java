@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
 
         mMovieAdapter = new MovieAdapter(this);
 
-        loadMoviesData(getString(R.string.sort_query_popularity));
+        loadMoviesData(getString(R.string.endpoint_popularity));
     }
 
     @Override
@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
         String option = parent.getItemAtPosition(pos).toString();
 
         if (Objects.equals(option, getString(R.string.sort_option_rating)))
-            loadMoviesData(getString(R.string.sort_query_rating));
+            loadMoviesData(getString(R.string.endpoint_rating));
         else
-            loadMoviesData(getString(R.string.sort_query_popularity));
+            loadMoviesData(getString(R.string.endpoint_popularity));
     }
 
     public void onNothingSelected(AdapterView<?> parent)
@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
     }
 
     /**
-     * This method will get the user's preferred location for weather, and then tell some
-     * background method to get the weather data in the background.
+     * This method will send the request for the movie data based on the proper endpoint,
+     * depending on what the user selected.
      */
-    private void loadMoviesData(String sort_by) {
+    private void loadMoviesData(String endPoint) {
         showMoviePostersView();
 
-        new FetchMoviesDataTask().execute(sort_by);
+        new FetchMoviesDataTask().execute(endPoint);
     }
 
     private class FetchMoviesDataTask extends AsyncTask<String, Void, Movie[]> {
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
                 return null;
             }
 
-            String sort_by = params[0];
-            URL moviesRequestUrl = NetworkUtilities.buildMoviesUrl(sort_by);
+            String endPoint = params[0];
+            URL moviesRequestUrl = NetworkUtilities.buildMoviesUrl(endPoint);
 
             try
             {
