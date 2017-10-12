@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
     static final int num_mov_posters = 18;
     private MovieAdapter mMovieAdapter;
 
-    /* The spinner with the sorting options*/
-    private Spinner mSpinner;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
         inflater.inflate(R.menu.sort, menu);
 
         MenuItem item = menu.findItem(R.id.sort_functions_spinner);
-        mSpinner = (Spinner) MenuItemCompat.getActionView(item);
+        Spinner mSpinner = (Spinner) MenuItemCompat.getActionView(item);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options_array, android.R.layout.simple_spinner_item);
