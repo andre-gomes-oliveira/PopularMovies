@@ -1,21 +1,25 @@
 <resources>
+    <!-- General values, mostly messages or other kind of information to the user-->
     <string name="app_name">Popular Movies</string>
-    <string name="error_message">Failed to load movie data, please try again later.</string>
-    <string name="accessibility_poster_thumbnail">A thumbnail containing the movie poster</string>
-    <string name="sort_option_popularity">Popular</string>
-    <string name="sort_option_rating">highest-rated</string>
-    <string name="sort_spinner_title">ActionBar Spinner </string>
+    <string name="error_loading_message">Failed to load movie data, please try again later.</string>
+    <string name="error_option_message">Unknown sorting criteria, please try another one.</string>
+
+    <!-- Sorting options, both labels and values -->
+    <string name="sort_spinner_title">ActionBar Spinner</string>
+    <string name="sort_option_popularity_label">Popular</string>
+    <string name="sort_option_rating_label">Highest-rated</string>
+    <string name="sort_option_favorites_label">Favorites</string>
+    <string name="sort_option_popularity_value" translatable="false">/popular</string>
+    <string name="sort_option_rating_value" translatable="false">/top_rated</string>
+    <string name="sort_option_favorites_value" translatable="false">/favorites</string>
+
+    <!-- Labels displayed mainly in the details activity-->
     <string name="details_release_date">Release Date:</string>
     <string name="details_rating">User Rating:</string>
     <string name="details_synopsis">Synopsis:</string>
+    <string name="accessibility_poster_thumbnail">A thumbnail containing the movie poster</string>
 
-    <string-array name="sort_options_array">
-        <item>@string/sort_option_popularity</item>
-        <item>@string/sort_option_rating</item>
-    </string-array>
-
+    <!-- Additional values to be used in code, not shown ot the user -->
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
-    <string name="endpoint_popularity" translatable="false">/popular</string>
-    <string name="endpoint_rating" translatable="false">/top_rated</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
 </resources>

@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.net.URL;
@@ -47,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
         setContentView(R.layout.activity_main);
 
         /*Obtaining the references to the views from the XML.*/
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_movies);
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mRecyclerView = findViewById(R.id.rv_movies);
+        mErrorMessageDisplay = findViewById(R.id.tv_error_message_display);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         /*Creating and adjusting the layout manager
           the movie posters will be displayed in 2 columns, like the mock-up.*/
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
 
         mMovieAdapter = new MovieAdapter(this);
 
-        loadMoviesData(getString(R.string.endpoint_popularity));
+        loadMoviesData(getString(R.string.sort_option_popularity_value));
     }
 
     @Override
@@ -82,10 +83,10 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
         inflater.inflate(R.menu.sort, menu);
 
         MenuItem item = menu.findItem(R.id.sort_functions_spinner);
-        Spinner mSpinner = (Spinner) MenuItemCompat.getActionView(item);
+        Spinner mSpinner = (Spinner) item.getActionView();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sort_options_array, android.R.layout.simple_spinner_item);
+                R.array.sort_options_labels, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mSpinner.setAdapter(adapter);
@@ -98,10 +99,16 @@ public class MainActivity extends AppCompatActivity implements  MovieAdapter.mov
     {
         String option = parent.getItemAtPosition(pos).toString();
 
-        if (Objects.equals(option, getString(R.string.sort_option_rating)))
-            loadMoviesData(getString(R.string.endpoint_rating));
+        if (Objects.equals(option, getString(R.string.sort_option_rating_label)))
+            loadMoviesData(getString(R.string.sort_option_rating_value));
+        else if(Objects.equals(option, getString(R.string.sort_option_popularity_label)))
+            loadMoviesData(getString(R.string.sort_option_popularity_value));
+        else if(Objects.equals(option, getString(R.string.sort_option_favorites_label)))
+            loadMoviesData(getString(R.string.sort_option_favorites_value));
         else
-            loadMoviesData(getString(R.string.endpoint_popularity));
+            Toast.makeText(this,
+                    getString(R.string.error_option_message),
+                    Toast.LENGTH_LONG).show();
     }
 
     public void onNothingSelected(AdapterView<?> parent)

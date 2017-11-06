@@ -2,11 +2,13 @@
 <resources>
     <string name="app_name">Filmes populares</string>
     <string name="accessibility_poster_thumbnail">Uma miniatura que contêm o poster do filme</string>
-    <string name="error_message">Não foi possível carregar os dados dos filmes, por favor tente novamente mais tarde.</string>
-    <string name="sort_option_popularity">Populares</string>
-    <string name="sort_option_rating">Recomendados</string>
+    <string name="error_loading_message">Não foi possível carregar os dados dos filmes, por favor tente novamente mais tarde.</string>
+    <string name="sort_option_popularity_label">Populares</string>
+    <string name="sort_option_rating_label">Recomendados</string>
     <string name="details_rating">Nota dos usuários:</string>
     <string name="details_release_date">Data de lançamento:</string>
     <string name="sort_spinner_title">Seletor</string>
     <string name="details_synopsis">Sinópse:</string>
+    <string name="sort_option_favorites_label">Favoritos</string>
+    <string name="error_option_message">Critério de ordenação desconhecido, por favor selecione outra opção.</string>
 </resources>
