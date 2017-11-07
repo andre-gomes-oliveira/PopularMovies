@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,11 +20,11 @@ public class MovieDetailsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        TextView mTitleView = (TextView) findViewById(R.id.tv_details_title);
-        ImageView mPosterView = (ImageView) findViewById(R.id.iv_details_poster);
-        TextView mSynopsisView = (TextView) findViewById(R.id.tv_details_synopsis);
-        TextView mReleaseView = (TextView) findViewById(R.id.tv_details_date);
-        TextView mRatingView = (TextView) findViewById(R.id.tv_details_rating);
+        TextView mTitleView = findViewById(R.id.tv_details_title);
+        ImageView mPosterView = findViewById(R.id.iv_details_poster);
+        TextView mSynopsisView = findViewById(R.id.tv_details_synopsis);
+        TextView mReleaseView = findViewById(R.id.tv_details_date);
+        TextView mRatingView = findViewById(R.id.tv_details_rating);
 
         Intent starterIntent = getIntent();
 
@@ -48,5 +49,10 @@ public class MovieDetailsActivity extends AppCompatActivity
                         .into(mPosterView);
             }
         }
+    }
+
+    public void addFavorite(View view)
+    {
+        //TODO Implement the logic to add a movie to a list of favorites.
     }
 }

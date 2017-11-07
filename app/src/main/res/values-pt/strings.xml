@@ -11,4 +11,5 @@
     <string name="details_synopsis">Sinópse:</string>
     <string name="sort_option_favorites_label">Favoritos</string>
     <string name="error_option_message">Critério de ordenação desconhecido, por favor selecione outra opção.</string>
+    <string name="accessibility_favorite_image">Um botão usado para acrescentar o filme à lista de favoritos.</string>
 </resources>

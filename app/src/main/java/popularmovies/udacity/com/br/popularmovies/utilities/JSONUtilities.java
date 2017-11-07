@@ -1,9 +1,5 @@
 package popularmovies.udacity.com.br.popularmovies.utilities;
 
-/**
- * Created by Andre on 07/10/2017.
- */
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

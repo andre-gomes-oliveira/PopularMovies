@@ -7,12 +7,4 @@
         <item>@string/sort_option_rating_label</item>
         <item>@string/sort_option_favorites_label</item>
     </array>
-
-    <!-- The value of each of the sorting options -->
-    <array name="sort_options_values">
-        <item>@string/sort_option_popularity_value</item>
-        <item>@string/sort_option_rating_value</item>
-        <item>@string/sort_option_favorites_value</item>
-    </array>
-
 </resources>

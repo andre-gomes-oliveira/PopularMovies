@@ -29,40 +29,53 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/accessibility_poster_thumbnail"
                     android:cropToPadding="false" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/green_subtitle"
                         android:text="@string/details_release_date"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
                         android:textAlignment="center"
-                        android:background="@color/green_subtitle"/>
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tv_details_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:textSize="16sp"
-                        />
+                        android:textSize="16sp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/green_subtitle"
                         android:text="@string/details_rating"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
                         android:textAlignment="center"
-                        android:background="@color/green_subtitle"/>
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/tv_details_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="16sp"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/ib_favorite"
+                        style="@android:style/Widget.Holo.ImageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/accessibility_favorite_image"
+                        android:onClick="addFavorite"
+                        android:src="@drawable/ic_favorite_white_24px" />
                 </LinearLayout>
             </LinearLayout>
             <TextView

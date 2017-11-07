@@ -22,4 +22,5 @@
     <!-- Additional values to be used in code, not shown ot the user -->
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
+    <string name="accessibility_favorite_image">A button used to add the movie to the list of favorites.</string>
 </resources>

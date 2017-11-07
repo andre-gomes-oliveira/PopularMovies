@@ -3,7 +3,6 @@ package popularmovies.udacity.com.br.popularmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,7 +26,11 @@ import java.util.Objects;
 import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
 import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
 
-public class MainActivity extends AppCompatActivity implements  MovieAdapter.movieClickListener, AdapterView.OnItemSelectedListener  {
+public class MainActivity
+        extends AppCompatActivity
+        implements  MovieAdapter.movieClickListener,
+        AdapterView.OnItemSelectedListener
+{
 
     /* RecyclerView that will be used to circle through the movie posters */
     private RecyclerView mRecyclerView;
