@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -54,5 +55,7 @@ public class MovieDetailsActivity extends AppCompatActivity
     public void addFavorite(View view)
     {
         //TODO Implement the logic to add a movie to a list of favorites.
+        Toast.makeText(this, getString(R.string.favorite_message), Toast.LENGTH_SHORT)
+                .show();
     }
 }

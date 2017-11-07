@@ -3,6 +3,7 @@
     <string name="app_name">Popular Movies</string>
     <string name="error_loading_message">Failed to load movie data, please try again later.</string>
     <string name="error_option_message">Unknown sorting criteria, please try another one.</string>
+    <string name="favorite_message">Movie inserted in the favorites list.</string>
 
     <!-- Sorting options, both labels and values -->
     <string name="sort_spinner_title">ActionBar Spinner</string>
