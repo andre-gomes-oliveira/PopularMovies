@@ -18,13 +18,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
     private final int mNumberMovies;
     private Movie[] mMovies;
 
-    MovieAdapter(movieClickListener listener)
-    {
-        mNumberMovies = MainActivity.num_mov_posters;
-        mMovieClickListener = listener;
-        mMovies = new Movie[mNumberMovies];
-    }
-
     @Override
     public movieViewHolder onCreateViewHolder(ViewGroup group, int viewType)
     {
@@ -48,6 +41,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
     public int getItemCount()
     {
         return mNumberMovies;
+    }
+
+    MovieAdapter(movieClickListener listener)
+    {
+        mNumberMovies = MainActivity.num_mov_posters;
+        mMovieClickListener = listener;
+        mMovies = new Movie[mNumberMovies];
     }
 
     public class movieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

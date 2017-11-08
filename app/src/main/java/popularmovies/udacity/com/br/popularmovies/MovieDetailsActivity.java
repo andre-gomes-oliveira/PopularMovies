@@ -1,10 +1,8 @@
 package popularmovies.udacity.com.br.popularmovies;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
-
-import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
-import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
 
 public class MovieDetailsActivity extends AppCompatActivity
 {
@@ -79,21 +72,24 @@ public class MovieDetailsActivity extends AppCompatActivity
 	*   Since I wasn't sure of how to call YouTube via explicit intent, I used the following source as an example:
 	*  https://stackoverflow.com/questions/574195/android-youtube-app-play-video-intent
 	*/
-	public void playMovieTrailer(Context context, String id)
-	{
-		Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_intent) + id));
+    public void playMovieTrailer(View view)
+    {
+        //TODO: Make sure to add the id of the trailer in the tag.
+        String id = (String) view.getTag();
 
-		try
-		{
-			context.startActivity(appIntent);
-		}
-		catch (ActivityNotFoundException ex)
-		{
-			Intent webIntent = new Intent(Intent.ACTION_VIEW,
-				Uri.parse(getString(R.string.youtube_url) + id));
-				
-			context.startActivity(webIntent);
-		}
-	}
+        Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.youtube_intent) + id));
 
+        try
+        {
+            startActivity(appIntent);
+        }
+        catch (ActivityNotFoundException ex)
+        {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.youtube_url) + id));
+
+            startActivity(webIntent);
+        }
+    }
 }

@@ -16,4 +16,5 @@
     <string name="favorite_removed_message">Este filme foi removido da sua lista de favoritos.</string>
     <string name="details_trailers">Trailers:</string>
     <string name="details_reviews">Resenhas:</string>
+    <string name="accessibility_play_image">Botão utilizado para exibir o trailer selecionado.</string>
 </resources>
