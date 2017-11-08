@@ -10,19 +10,15 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by Andre on 05/10/2017.
- */
-
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHolder> {
-
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHolder>
+{
     private static final String TAG = MovieAdapter.class.getSimpleName();
     private final movieClickListener mMovieClickListener;
 
     private final int mNumberMovies;
     private Movie[] mMovies;
 
-    public MovieAdapter(movieClickListener listener)
+    MovieAdapter(movieClickListener listener)
     {
         mNumberMovies = MainActivity.num_mov_posters;
         mMovieClickListener = listener;
@@ -58,11 +54,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
     {
         final ImageView posterView;
 
-        public movieViewHolder(View itemView)
+        movieViewHolder(View itemView)
         {
             super(itemView);
 
-            posterView = (ImageView) itemView.findViewById(R.id.iv_item_poster);
+            posterView = itemView.findViewById(R.id.iv_item_poster);
             itemView.setOnClickListener(this);
         }
 
@@ -81,11 +77,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
             Log.v(TAG, "Picasso URL " + picassoURL);
             Picasso.with(context)
                     .load(picassoURL)
+                    .placeholder(R.drawable.ic_error_white_24px)
+                    .error(R.drawable.ic_photo_size_select_actual_white_24px)
                     .into(posterView);
         }
     }
 
-    public void setMovies(Movie[] movies)
+    void setMovies(Movie[] movies)
     {
         mMovies = movies;
         notifyDataSetChanged();

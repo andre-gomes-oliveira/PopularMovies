@@ -12,11 +12,7 @@
             android:background="@color/green_details">
             <TextView
                 android:id="@+id/tv_details_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="viewStart"
-                android:background="@color/green_title"
-                android:textSize="30sp"
+                style="@style/DetailTitleTheme"
                 tools:text="Movie Title" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,71 +25,48 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/accessibility_poster_thumbnail"
                     android:cropToPadding="false" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/green_subtitle"
-                        android:text="@string/details_release_date"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
+                        style="@style/detailSubtitleTheme"
+                        android:text="@string/details_release_date" />
                     <TextView
-                        android:id="@+id/tv_details_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="16sp" />
-
+                        style="@style/detailTextTheme"
+                        android:id="@+id/tv_details_date"/>
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/green_subtitle"
-                        android:text="@string/details_rating"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
+                        style="@style/detailSubtitleTheme"
+                        android:text="@string/details_rating" />
                     <TextView
-                        android:id="@+id/tv_details_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textAlignment="center"
-                        android:textSize="16sp" />
+                        style="@style/detailTextTheme"
+                        android:id="@+id/tv_details_rating" />
 
                     <ImageButton
+                        style="@style/Button"
                         android:id="@+id/ib_favorite"
-                        style="@android:style/Widget.Holo.ImageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:contentDescription="@string/accessibility_favorite_image"
-                        android:onClick="addFavorite"
-                        android:src="@drawable/ic_favorite_white_24px" />
+                        android:src="@drawable/ic_favorite_white_24px"
+                        android:onClick="addFavorite"/>
                 </LinearLayout>
             </LinearLayout>
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/details_synopsis"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:background="@color/green_subtitle"/>
+                style="@style/detailSubtitleTheme"
+                android:text="@string/details_synopsis" />
             <TextView
-                android:id="@+id/tv_details_synopsis"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                style="@style/detailTextTheme"
+                android:id="@+id/tv_details_synopsis" />
+            <TextView
+                style="@style/detailSubtitleTheme"
+                android:text="@string/details_trailers" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_trailers"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                style="@style/detailSubtitleTheme"
+                android:text="@string/details_reviews" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_reviews"
                 android:layout_width="match_parent"

@@ -3,10 +3,6 @@ package popularmovies.udacity.com.br.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Andre on 05/10/2017.
- */
-
 public class Movie implements Parcelable
 {
     private final int mId;
@@ -27,7 +23,8 @@ public class Movie implements Parcelable
         this.mReleaseDate = releaseDate;
     }
 
-    private Movie(Parcel in){
+    private Movie(Parcel in)
+    {
         this.mId = in.readInt();
         this.mTitle = in.readString();
         this.mPosterPath = in.readString();
@@ -53,27 +50,27 @@ public class Movie implements Parcelable
         dest.writeString(mReleaseDate);
     }
 
-    public String getMovieTitle()
+    String getMovieTitle()
     {
         return mTitle;
     }
 
-    public String getMoviePosterPath()
+    String getMoviePosterPath()
     {
         return mPosterPath;
     }
 
-    public String getMovieSynopsis()
+    String getMovieSynopsis()
     {
         return mSynopsis;
     }
 
-    public int getMovieRating()
+    int getMovieRating()
     {
         return mRating;
     }
 
-    public String getMovieReleaseDate()
+    String getMovieReleaseDate()
     {
         return mReleaseDate;
     }

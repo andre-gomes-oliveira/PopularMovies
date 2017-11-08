@@ -3,8 +3,9 @@
     <string name="app_name">Popular Movies</string>
     <string name="error_loading_message">Failed to load movie data, please try again later.</string>
     <string name="error_option_message">Unknown sorting criteria, please try another one.</string>
-    <string name="favorite_message">Movie inserted in the favorites list.</string>
-
+    <string name="favorite_inserted_message">Movie inserted in the favorites list.</string>
+    <string name="favorite_removed_message">Movie removed from the favorites list.</string>
+	
     <!-- Sorting options, both labels and values -->
     <string name="sort_spinner_title">ActionBar Spinner</string>
     <string name="sort_option_popularity_label">Popular</string>
@@ -18,10 +19,15 @@
     <string name="details_release_date">Release Date:</string>
     <string name="details_rating">User Rating:</string>
     <string name="details_synopsis">Synopsis:</string>
+    <string name="details_trailers">Trailers:</string>
+    <string name="details_reviews">Reviews:</string>
     <string name="accessibility_poster_thumbnail">A thumbnail containing the movie poster</string>
-
+    <string name="accessibility_favorite_image">A button used to add the movie to the list of favorites.</string>
+	
     <!-- Additional values to be used in code, not shown ot the user -->
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
-    <string name="accessibility_favorite_image">A button used to add the movie to the list of favorites.</string>
+		<string name="youtube_intent" translatable="false">vnd.youtube:</string>
+	<string name="youtube_url" translatable="false">http://www.youtube.com/watch?v=</string>
+
 </resources>

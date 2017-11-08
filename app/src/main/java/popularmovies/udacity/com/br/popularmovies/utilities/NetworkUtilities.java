@@ -17,7 +17,8 @@ import java.util.Scanner;
  * Based on functions using during previous tasks.
  */
 
-public final class NetworkUtilities {
+public final class NetworkUtilities
+{
 
     private static final String TAG = NetworkUtilities.class.getSimpleName();
 
@@ -26,7 +27,8 @@ public final class NetworkUtilities {
     private static final String key = "";
     private static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie";
 
-    public static URL buildMoviesUrl(String endpoint) {
+    public static URL buildMoviesUrl(String endpoint)
+    {
         Uri builtUri = Uri.parse(BASE_MOVIE_URL + endpoint).buildUpon()
                 .appendQueryParameter(api, key)
                 .build();
@@ -50,9 +52,11 @@ public final class NetworkUtilities {
      * @return The contents of the HTTP response.
      * @throws IOException Related to network and stream reading
      */
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
+    public static String getResponseFromHttpUrl(URL url) throws IOException
+    {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
+        try
+        {
             InputStream in = urlConnection.getInputStream();
 
             Scanner scanner = new Scanner(in);
@@ -64,7 +68,9 @@ public final class NetworkUtilities {
             } else {
                 return null;
             }
-        } finally {
+        }
+        finally
+        {
             urlConnection.disconnect();
         }
     }

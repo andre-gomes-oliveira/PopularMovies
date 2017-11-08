@@ -8,11 +8,12 @@ import java.net.HttpURLConnection;
 
 import popularmovies.udacity.com.br.popularmovies.Movie;
 
-
-public class JSONUtilities {
+public class JSONUtilities
+{
 
     public static Movie[] getMovieDataFromJson(String forecastJsonStr)
-            throws JSONException {
+            throws JSONException
+    {
 
         final String MOVIES_LIST = "results";
         final String MESSAGE_CODE = "cod";
@@ -30,10 +31,12 @@ public class JSONUtilities {
         JSONObject resultsJson = new JSONObject(forecastJsonStr);
 
         /* Is there an error? */
-        if (resultsJson.has(MESSAGE_CODE)) {
+        if (resultsJson.has(MESSAGE_CODE))
+        {
             int errorCode = resultsJson.getInt(MESSAGE_CODE);
 
-            switch (errorCode) {
+            switch (errorCode)
+            {
                 case HttpURLConnection.HTTP_OK:
                     break;
                 case HttpURLConnection.HTTP_NOT_FOUND:
@@ -47,7 +50,8 @@ public class JSONUtilities {
 
         parsedMoviesData = new Movie[moviesArray.length()];
 
-        for (int i = 0; i < moviesArray.length(); i++) {
+        for (int i = 0; i < moviesArray.length(); i++)
+        {
             /* movie data to be obtained*/
             int id;
             String title;

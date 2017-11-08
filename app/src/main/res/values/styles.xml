@@ -8,4 +8,35 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Detail title theme -->
+    <style name="DetailTitleTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:background">@color/green_title</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Detail subtitle theme -->
+    <style name="detailSubtitleTheme" parent="DetailTitleTheme">
+        <item name="android:background">@color/green_subtitle</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Detail text theme -->
+    <style name="detailTextTheme" parent="detailSubtitleTheme">
+        <item name="android:background">@color/green_details</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="Button"  parent="Base.TextAppearance.AppCompat.Button" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:layout_gravity">center_vertical|center_horizontal</item>
+    </style>
 </resources>

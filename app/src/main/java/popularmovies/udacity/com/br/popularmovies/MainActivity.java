@@ -46,7 +46,8 @@ public class MainActivity
     private MovieAdapter mMovieAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -122,7 +123,8 @@ public class MainActivity
      * This method will make the View for the movie posters visible and
      * hide the error message.
      */
-    private void showMoviePostersView() {
+    private void showMoviePostersView()
+    {
         mErrorMessageDisplay.setVisibility(View.INVISIBLE);
         mRecyclerView.setVisibility(View.VISIBLE);
     }
@@ -131,7 +133,8 @@ public class MainActivity
      * This method will make the error message visible and hide
      * the movie posters View.
      */
-    private void showErrorMessage() {
+    private void showErrorMessage()
+    {
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
@@ -140,13 +143,15 @@ public class MainActivity
      * This method will send the request for the movie data based on the proper endpoint,
      * depending on what the user selected.
      */
-    private void loadMoviesData(String endPoint) {
+    private void loadMoviesData(String endPoint)
+    {
         showMoviePostersView();
 
         new FetchMoviesDataTask().execute(endPoint);
     }
 
-    private class FetchMoviesDataTask extends AsyncTask<String, Void, Movie[]> {
+    private class FetchMoviesDataTask extends AsyncTask<String, Void, Movie[]>
+    {
 
         @Override
         protected void onPreExecute() {
