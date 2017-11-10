@@ -26,6 +26,10 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <provider
+            android:name="popularmovies.udacity.com.br.popularmovies.data.MovieContentProvider"
+            android:authorities="popularmovies.udacity.com.br.popularmovies"
+            android:exported="false"/>
     </application>
 
 </manifest>
