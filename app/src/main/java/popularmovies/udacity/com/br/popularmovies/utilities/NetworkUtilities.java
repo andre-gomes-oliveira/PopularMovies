@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * Created by Andre on 03/10/2017.
- *
  * Class containing a few functions used to deal with internet requests.
  * Based on functions using during previous tasks.
  */

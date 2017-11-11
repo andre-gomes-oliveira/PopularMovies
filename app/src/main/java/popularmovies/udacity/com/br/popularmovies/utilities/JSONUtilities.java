@@ -117,7 +117,7 @@ public class JSONUtilities
             JSONObject trailer = trailersArray.getJSONObject(i);
 
             /*Obtaining the trailer data */
-            int id = trailer.getInt((TRAILER_ID));
+            String id = trailer.getString((TRAILER_ID));
             String name = trailer.getString(TRAILER_NAME);
             String type = trailer.getString(TRAILER_TYPE);
             String key = trailer.getString(TRAILER_KEY);
@@ -167,7 +167,7 @@ public class JSONUtilities
             JSONObject review = reviewsArray.getJSONObject(i);
 
             /*Obtaining the review data */
-            int id = review.getInt((REVIEW_ID));
+            String id = review.getString((REVIEW_ID));
             String author = review.getString(REVIEW_AUTHOR);
             String content = review.getString(REVIEW_CONTENT);
             String url = review.getString(REVIEW_URL);

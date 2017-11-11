@@ -1,4 +1,4 @@
-package popularmovies.udacity.com.br.popularmovies;
+package popularmovies.udacity.com.br.popularmovies.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import popularmovies.udacity.com.br.popularmovies.MainActivity;
+import popularmovies.udacity.com.br.popularmovies.R;
 import popularmovies.udacity.com.br.popularmovies.model.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHolder>
@@ -45,11 +47,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
         return mNumberMovies;
     }
 
-    MovieAdapter(movieClickListener listener)
+    public MovieAdapter(movieClickListener listener)
     {
         mNumberMovies = MainActivity.num_mov_posters;
         mMovieClickListener = listener;
         mMovies = new Movie[mNumberMovies];
+    }
+
+    public void setMovies(Movie[] movies)
+    {
+        mMovies = movies;
+        notifyDataSetChanged();
+    }
+
+    public interface movieClickListener
+    {
+        void onMovieItemClick (Movie clickedMovie);
     }
 
     public class movieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
@@ -83,16 +96,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
                     .error(R.drawable.ic_photo_size_select_actual_white_24px)
                     .into(posterView);
         }
-    }
-
-    void setMovies(Movie[] movies)
-    {
-        mMovies = movies;
-        notifyDataSetChanged();
-    }
-
-    public interface movieClickListener
-    {
-        void onMovieItemClick (Movie clickedMovie);
     }
 }

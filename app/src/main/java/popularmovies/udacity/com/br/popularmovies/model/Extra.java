@@ -2,16 +2,16 @@ package popularmovies.udacity.com.br.popularmovies.model;
 
 public class Extra
 {
-    int mId;
+    String mId;
 
     Extra()
     {
     }
 
-    public Extra(int id)
+    public Extra(String id)
     {
         this.mId = id;
     }
 
-    public int getId() { return mId; }
+    public String getId() { return mId; }
 }

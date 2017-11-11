@@ -6,7 +6,7 @@ public class Review extends Extra
     private final String mContent;
     private final String mUrl;
 
-    public Review(int id, String author, String content, String url)
+    public Review(String id, String author, String content, String url)
     {
         this.mId = id;
         this.mAuthor = author;
@@ -14,7 +14,7 @@ public class Review extends Extra
         this.mUrl = url;
     }
 
-    public int getId()
+    public String getId()
     {
         return mId;
     }

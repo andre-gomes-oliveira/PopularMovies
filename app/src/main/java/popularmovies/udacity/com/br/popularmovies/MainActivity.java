@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.net.URL;
 import java.util.Objects;
 
+import popularmovies.udacity.com.br.popularmovies.adapters.MovieAdapter;
 import popularmovies.udacity.com.br.popularmovies.model.Movie;
 import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
 import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
@@ -43,7 +44,7 @@ public class MainActivity
     private ProgressBar mLoadingIndicator;
 
     /* The Adapter that will fetch the data and bind them to the views*/
-    static final int num_mov_posters = 18;
+    public static final int num_mov_posters = 18;
     private MovieAdapter mMovieAdapter;
 
     @Override
@@ -65,7 +66,7 @@ public class MainActivity
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mMovieAdapter = new MovieAdapter(this);
+        mMovieAdapter = new  MovieAdapter(this);
 
         loadMoviesData(getString(R.string.sort_option_popularity_value));
     }

@@ -6,7 +6,7 @@ public class Trailer extends Extra
     private final String mType;
     private final String mKey;
 
-    public Trailer(int id, String name, String type, String key)
+    public Trailer(String id, String name, String type, String key)
     {
         this.mId = id;
         this.mName = name;
@@ -14,7 +14,7 @@ public class Trailer extends Extra
         this.mKey = key;
     }
 
-    public int getId()
+    public String getId()
     {
         return mId;
     }
