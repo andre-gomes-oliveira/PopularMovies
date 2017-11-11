@@ -24,7 +24,7 @@ public final class NetworkUtilities
 
     /* Base URLs*/
     private static final String api = "api_key";
-    private static final String key = "201c148f5f996f9bc4c95669c195aa24";
+    private static final String key = "";
     private static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie";
 
     public static URL buildMoviesUrl(String endpoint)
