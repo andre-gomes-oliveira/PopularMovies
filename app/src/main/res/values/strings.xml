@@ -28,7 +28,12 @@
     <!-- Additional values to be used in code, not shown ot the user -->
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
-		<string name="youtube_intent" translatable="false">vnd.youtube:</string>
+    <string name="youtube_intent" translatable="false">vnd.youtube:</string>
 	<string name="youtube_url" translatable="false">http://www.youtube.com/watch?v=</string>
+    <string name="request_trailers_url" translatable="false">/videos</string>
+    <string name="request_reviews_url" translatable="false">/reviews</string>
+    <string name="bundle_id" translatable="false">request_id</string>
+    <string name="bundle_reviews" translatable="false">request_reviews</string>
+    <string name="bundle_trailers" translatable="false">request_trailers</string>
 
 </resources>

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import popularmovies.udacity.com.br.popularmovies.model.Movie;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHolder>
 {
     private static final String TAG = MovieAdapter.class.getSimpleName();

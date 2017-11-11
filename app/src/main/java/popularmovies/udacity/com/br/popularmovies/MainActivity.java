@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.net.URL;
 import java.util.Objects;
 
+import popularmovies.udacity.com.br.popularmovies.model.Movie;
 import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
 import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
 

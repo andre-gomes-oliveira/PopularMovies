@@ -1,4 +1,4 @@
-package popularmovies.udacity.com.br.popularmovies;
+package popularmovies.udacity.com.br.popularmovies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -50,27 +50,29 @@ public class Movie implements Parcelable
         dest.writeString(mReleaseDate);
     }
 
-    String getMovieTitle()
+    public int getMovieId() { return mId; }
+
+    public String getMovieTitle()
     {
         return mTitle;
     }
 
-    String getMoviePosterPath()
+    public String getMoviePosterPath()
     {
         return mPosterPath;
     }
 
-    String getMovieSynopsis()
+    public String getMovieSynopsis()
     {
         return mSynopsis;
     }
 
-    int getMovieRating()
+    public int getMovieRating()
     {
         return mRating;
     }
 
-    String getMovieReleaseDate()
+    public String getMovieReleaseDate()
     {
         return mReleaseDate;
     }

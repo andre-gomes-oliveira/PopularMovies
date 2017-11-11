@@ -3,6 +3,10 @@ package popularmovies.udacity.com.br.popularmovies;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +18,24 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-public class MovieDetailsActivity extends AppCompatActivity
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.URL;
+
+import popularmovies.udacity.com.br.popularmovies.model.Extra;
+import popularmovies.udacity.com.br.popularmovies.model.Movie;
+import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
+import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
+
+public class MovieDetailsActivity
+        extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Extra[]>
 {
+    private static final int MOVIE_REQUEST_LOADER = 11;
     private static final String TAG = MovieAdapter.class.getSimpleName();
+
+    private Movie mMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,9 +54,11 @@ public class MovieDetailsActivity extends AppCompatActivity
         if (starterIntent != null)
         {
             String movieIntent = getString(R.string.movie_details_intent);
+            getSupportLoaderManager().initLoader(MOVIE_REQUEST_LOADER, null, this);
+
             if (starterIntent.hasExtra(movieIntent))
             {
-                Movie mMovie = starterIntent.getParcelableExtra(movieIntent);
+                mMovie = starterIntent.getParcelableExtra(movieIntent);
 
                 mTitleView.setText(mMovie.getMovieTitle());
                 mSynopsisView.setText(mMovie.getMovieSynopsis());
@@ -53,7 +74,101 @@ public class MovieDetailsActivity extends AppCompatActivity
                         .placeholder(R.drawable.ic_error_white_24px)
                         .error(R.drawable.ic_photo_size_select_actual_white_24px)
                         .into(mPosterView);
+
+                makeMovieDetailsRequest(getString(R.string.request_trailers_url));
+                makeMovieDetailsRequest(getString(R.string.request_reviews_url));
             }
+        }
+    }
+
+    @Override
+    public Loader<Extra[]> onCreateLoader(int id, final Bundle args)
+    {
+        return new AsyncTaskLoader<Extra[]>(this)
+        {
+
+            @Override
+            protected void onStartLoading()
+            {
+
+                if (args == null) {
+                    return;
+                }
+
+                // COMPLETED (7) Show the loading indicator
+                /*
+                 * When we initially begin loading in the background, we want to display the
+                 * loading indicator to the user
+                 */
+                //mLoadingIndicator.setVisibility(View.VISIBLE);
+
+                forceLoad();
+            }
+
+            @Override
+            public Extra[] loadInBackground()
+            {
+                String request, id, trailer, review;
+
+                id = args.getString(getString(R.string.bundle_id));
+                trailer = args.getString(getString(R.string.bundle_trailers));
+                review = args.getString(getString(R.string.bundle_reviews));
+
+                if (id == null)
+                    return null;
+
+                if(trailer != null)
+                    request = id + trailer;
+                else
+                    request = id + review;
+
+                try
+                {
+                    URL detailsUrl = new URL(request);
+                    String result = NetworkUtilities.getResponseFromHttpUrl(detailsUrl);
+
+                    if(trailer != null)
+                        return JSONUtilities.getTrailersDataFromJson(result);
+                    else
+                        return JSONUtilities.getReviewsDataFromJson(result);
+                }
+                catch (IOException | JSONException e)
+                {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Extra[]> loader, Extra[] data)
+    {
+        //TODO: Insert code that will update the recycler views for both the trailers and the reviews
+    }
+
+
+    @Override
+    public void onLoaderReset(Loader<Extra[]> loader)
+    {
+    }
+
+    private void makeMovieDetailsRequest(@NonNull String endpoint)
+    {
+        Bundle requestBundle = new Bundle();
+        requestBundle.putInt(getString(R.string.bundle_id), mMovie.getMovieId());
+        if(endpoint.equals(getString(R.string.request_trailers_url)))
+            requestBundle.putString(getString(R.string.bundle_trailers), endpoint);
+        else
+            requestBundle.putString(getString(R.string.bundle_reviews), endpoint);
+
+        LoaderManager loaderManager = getSupportLoaderManager();
+        Loader<String> requestLoader = loaderManager.getLoader(MOVIE_REQUEST_LOADER);
+
+        if (requestLoader == null) {
+            loaderManager.initLoader(MOVIE_REQUEST_LOADER, requestBundle, this);
+        } else {
+            loaderManager.restartLoader(MOVIE_REQUEST_LOADER, requestBundle, this);
         }
     }
 
@@ -92,4 +207,5 @@ public class MovieDetailsActivity extends AppCompatActivity
             startActivity(webIntent);
         }
     }
+
 }
