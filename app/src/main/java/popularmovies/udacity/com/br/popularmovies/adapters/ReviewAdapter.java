@@ -15,14 +15,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.reviewView
 {
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
-    private int mNumberReviews;
+    private final int mNumberReviews;
     private Review[] mReviews;
 
     @Override
     public reviewViewHolder onCreateViewHolder(ViewGroup group, int viewType)
     {
         Context context = group.getContext();
-        int layoutId = R.layout.review_grid_layout;
+        int layoutId = R.layout.review_grid_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutId, group, false);
 

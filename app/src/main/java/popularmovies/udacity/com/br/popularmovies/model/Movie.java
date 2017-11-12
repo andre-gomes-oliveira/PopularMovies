@@ -50,29 +50,29 @@ public class Movie implements Parcelable
         dest.writeString(mReleaseDate);
     }
 
-    public int getMovieId() { return mId; }
+    public int getId() { return mId; }
 
-    public String getMovieTitle()
+    public String getTitle()
     {
         return mTitle;
     }
 
-    public String getMoviePosterPath()
+    public String getPosterPath()
     {
         return mPosterPath;
     }
 
-    public String getMovieSynopsis()
+    public String getSynopsis()
     {
         return mSynopsis;
     }
 
-    public int getMovieRating()
+    public int getRating()
     {
         return mRating;
     }
 
-    public String getMovieReleaseDate()
+    public String getReleaseDate()
     {
         return mReleaseDate;
     }

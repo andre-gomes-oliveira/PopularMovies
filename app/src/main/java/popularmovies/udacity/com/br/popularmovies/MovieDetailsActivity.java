@@ -1,11 +1,14 @@
 package popularmovies.udacity.com.br.popularmovies;
 
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,20 +23,15 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.net.URL;
-
 import popularmovies.udacity.com.br.popularmovies.adapters.MovieAdapter;
 import popularmovies.udacity.com.br.popularmovies.adapters.ReviewAdapter;
 import popularmovies.udacity.com.br.popularmovies.adapters.TrailerAdapter;
+import popularmovies.udacity.com.br.popularmovies.data.MovieContract.MovieEntry;
+import popularmovies.udacity.com.br.popularmovies.data.MovieDetailsLoader;
 import popularmovies.udacity.com.br.popularmovies.model.Extra;
 import popularmovies.udacity.com.br.popularmovies.model.Movie;
 import popularmovies.udacity.com.br.popularmovies.model.Review;
 import popularmovies.udacity.com.br.popularmovies.model.Trailer;
-import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
-import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
 
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 
@@ -52,10 +50,6 @@ public class MovieDetailsActivity
 
     /* RecyclerViews that will display the trailers and the reviews */
     private RecyclerView mTrailerRecyclerView, mReviewRecyclerView;
-
-    /* The Adapterd that will fetch the data and bind them to the views*/
-    private TrailerAdapter mTrailerAdapter;
-    private ReviewAdapter mReviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,14 +79,14 @@ public class MovieDetailsActivity
                 mMovie = starterIntent.getParcelableExtra(movieIntent);
 
                 /* Displaying the details of the movie in the UI */
-                mTitleView.setText(mMovie.getMovieTitle());
-                mSynopsisView.setText(mMovie.getMovieSynopsis());
-                mReleaseView.setText(mMovie.getMovieReleaseDate());
-                mRatingView.setText(String.valueOf(mMovie.getMovieRating()));
+                mTitleView.setText(mMovie.getTitle());
+                mSynopsisView.setText(mMovie.getSynopsis());
+                mReleaseView.setText(mMovie.getReleaseDate());
+                mRatingView.setText(String.valueOf(mMovie.getRating()));
 
                 /* Loading the movie poster, with a placeholder image to treat errors */
                 String picassoURL = this.getString(R.string.base_picasso_url)
-                        + mMovie.getMoviePosterPath();
+                        + mMovie.getPosterPath();
 
                 Log.v(TAG, "Picasso URL " + picassoURL);
                 Picasso.with(this)
@@ -115,6 +109,32 @@ public class MovieDetailsActivity
                 mTrailerRecyclerView.setLayoutManager(trailerManager);
                 mReviewRecyclerView.setLayoutManager(reviewManager);
 
+                /* Checking if the movie is in the favorites list */
+                ContentResolver resolver = getContentResolver();
+                Uri queryURI = MovieEntry.CONTENT_URI.buildUpon()
+                        .appendPath(String.valueOf(mMovie.getId())).build();
+
+                Cursor cursor = resolver.query(queryURI,
+                        null,
+                        null,
+                        null,
+                        null);
+
+                if(cursor != null)
+                {
+                    if (cursor.getCount() > 0)
+                    {
+                        ImageButton favoriteButton = findViewById(R.id.ib_favorite);
+                        favoriteButton.setImageResource(R.drawable.ic_favorite_black_24px);
+                    }
+                    else
+                    {
+                        ImageButton favoriteButton = findViewById(R.id.ib_favorite);
+                        favoriteButton.setImageResource(R.drawable.ic_favorite_white_24px);
+                    }
+                    cursor.close();
+                }
+
                 /* Performing the network requests that will fetch thee extra information*/
                 makeMovieDetailsRequest(getString(R.string.request_trailers_url));
                 makeMovieDetailsRequest(getString(R.string.request_reviews_url));
@@ -125,68 +145,13 @@ public class MovieDetailsActivity
     @Override
     public Loader<Extra[]> onCreateLoader(int id, final Bundle args)
     {
-        return new AsyncTaskLoader<Extra[]>(this)
-        {
-
-            @Override
-            protected void onStartLoading()
-            {
-
-                if (args == null) {
-                    return;
-                }
-
-                // COMPLETED (7) Show the loading indicator
-                /*
-                 * When we initially begin loading in the background, we want to display the
-                 * loading indicator to the user
-                 */
-                //mLoadingIndicator.setVisibility(View.VISIBLE);
-
-                forceLoad();
-            }
-
-            @Override
-            public Extra[] loadInBackground()
-            {
-                Integer id;
-                String request, trailer, review;
-
-                id = args.getInt(getString(R.string.bundle_id));
-                trailer = args.getString(getString(R.string.bundle_trailers));
-                review = args.getString(getString(R.string.bundle_reviews));
-
-                if (id == 0)
-                    return null;
-
-                if(trailer != null)
-                    request = "/" + id.toString() + trailer;
-                else
-                    request = "/" + id.toString() + review;
-
-                try
-                {
-                    URL detailsUrl = NetworkUtilities.buildMoviesUrl(request);
-                    String result = NetworkUtilities.getResponseFromHttpUrl(detailsUrl);
-
-                    if(trailer != null)
-                        return JSONUtilities.getTrailersDataFromJson(result);
-                    else
-                        return JSONUtilities.getReviewsDataFromJson(result);
-                }
-                catch (IOException | JSONException e)
-                {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        };
+        return new MovieDetailsLoader(this, args);
     }
 
     @Override
     public void onLoadFinished(Loader<Extra[]> loader, Extra[] data)
     {
-        if(data.length > 0)
+        if((data != null) && (data.length > 0))
         {
             if(data[0] instanceof Trailer)
                 displayTrailers(data);
@@ -206,7 +171,7 @@ public class MovieDetailsActivity
         LoaderManager loaderManager = getSupportLoaderManager();
 
         Bundle requestBundle = new Bundle();
-        requestBundle.putInt(getString(R.string.bundle_id), mMovie.getMovieId());
+        requestBundle.putInt(getString(R.string.bundle_id), mMovie.getId());
         if(endpoint.equals(getString(R.string.request_trailers_url)))
         {
             requestBundle.putString(getString(R.string.bundle_trailers), endpoint);
@@ -244,7 +209,7 @@ public class MovieDetailsActivity
             }
         }
 
-        mTrailerAdapter = new TrailerAdapter(trailers.length);
+        TrailerAdapter mTrailerAdapter = new TrailerAdapter(trailers.length);
         mTrailerAdapter.setTrailers(trailers);
         mTrailerRecyclerView.setAdapter(mTrailerAdapter);
     }
@@ -264,21 +229,83 @@ public class MovieDetailsActivity
             }
         }
 
-        mReviewAdapter = new ReviewAdapter(reviews.length);
+        ReviewAdapter mReviewAdapter = new ReviewAdapter(reviews.length);
         mReviewAdapter.setReviews(reviews);
         mReviewRecyclerView.setAdapter(mReviewAdapter);
     }
 
-    private void addFavorite(View view)
+    public void addFavorite(View view)
     {
-        //TODO Implement the logic to add a movie to a list of favorites.
-        Toast.makeText(this, getString(R.string.favorite_inserted_message), Toast.LENGTH_SHORT)
-                .show();
-
         ImageButton favoriteButton = findViewById(R.id.ib_favorite);
-        favoriteButton.setImageResource(R.drawable.ic_favorite_black_24px);
+
+        /* Acquiring the required components to execute with database operations */
+        ContentResolver resolver = getContentResolver();
+        ContentValues values = new ContentValues();
+
+        /* Populating the values with the data from the movie */
+        values.put(MovieEntry._ID, mMovie.getId());
+        values.put(MovieEntry.COLUMN_TITLE, mMovie.getTitle());
+        values.put(MovieEntry.COLUMN_POSTER_PATH, mMovie.getPosterPath());
+        values.put(MovieEntry.COLUMN_SYNOPSIS, mMovie.getSynopsis());
+        values.put(MovieEntry.COLUMN_RATING, mMovie.getRating());
+        values.put(MovieEntry.COLUMN_RELEASE_DATE, mMovie.getReleaseDate());
+
+        /* Checking weather the movie is in the database or not
+        * If it is not, it will be inserted (the user added it to the list of favorites)
+        * If it is, it will be deleted (the user removed it from the list of favorites)*/
+        Uri queryURI = MovieEntry.CONTENT_URI.buildUpon()
+                .appendPath(String.valueOf(mMovie.getId())).build();
+
+        Cursor cursor = resolver.query(queryURI,
+                null,
+                null,
+                null,
+                null);
+
+        if(cursor != null)
+        {
+            if (cursor.getCount() == 0)
+            {
+            /* Inserting a new movie in the database */
+                Uri uri = resolver.insert(MovieEntry.CONTENT_URI, values);
+
+                if(uri != null)
+                {
+                    favoriteButton.setImageResource(R.drawable.ic_favorite_black_24px);
+                    Toast.makeText(this, getString(R.string.favorite_inserted_message), Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+            else
+            {
+            /* Inserting a nre movie in the database */
+                int deletedMovies = resolver.delete(queryURI, null, null);
+
+                if(deletedMovies > 0)
+                {
+                    favoriteButton.setImageResource(R.drawable.ic_favorite_white_24px);
+                    Toast.makeText(this, getString(R.string.favorite_removed_message), Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            cursor.close();
+        }
     }
-	
+
+    public void shareMovieTrailer(View view)
+    {
+        String id = (String) view.getTag();
+
+        Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText(getString(R.string.youtube_url) + id)
+                .getIntent();
+
+        if (shareIntent.resolveActivity(getPackageManager()) != null)
+            startActivity(shareIntent);
+    }
+
 	/** This function attempts to open the selected trailer using YouTube.
 	*   If that fails, it tries to open it in a browser.
 	*   Since I wasn't sure of how to call YouTube via explicit intent, I used the following source as an example:

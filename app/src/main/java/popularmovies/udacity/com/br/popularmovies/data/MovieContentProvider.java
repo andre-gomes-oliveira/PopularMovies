@@ -19,11 +19,8 @@ public class MovieContentProvider extends ContentProvider
     private static final String TAG = MovieContentProvider.class.getSimpleName();
     private final static String ERROR_MSG = "Content provider operation failed. Check the log for details.";
 
-    public static final int MOVIES = 100 ;
-    public static final int MOVIES_WITH_ID = 101;
-    public static final int MOVIES_WITH_TITLE = 102;
-    public static final int MOVIES_WITH_RATING = 103;
-    public static final int MOVIES_WITH_RELEASE_DATE = 104;
+    private static final int MOVIES = 100 ;
+    private static final int MOVIES_WITH_ID = 101;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
@@ -60,6 +57,19 @@ public class MovieContentProvider extends ContentProvider
                         null,
                         sortOrder);
                 break;
+
+            case MOVIES_WITH_ID:
+                String id = uri.getLastPathSegment();
+
+                retCursor = db.query(
+                        MovieEntry.TABLE_NAME,
+                        projection,
+                        "_id=?",
+                        new String[]{id},
+                        null,
+                        null,
+                        sortOrder);
+                break;
             // Default exception
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -67,7 +77,7 @@ public class MovieContentProvider extends ContentProvider
 
         try
         {
-            retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+             retCursor.setNotificationUri(getContext().getContentResolver(), uri);
         }
         catch (java.lang.NullPointerException e)
         {
@@ -135,9 +145,9 @@ public class MovieContentProvider extends ContentProvider
 
         switch (match) {
             case MOVIES_WITH_ID:
-                String id = uri.getPathSegments().get(1);
+                String id = uri.getLastPathSegment();
                 moviesDeleted = db.delete(MovieEntry.TABLE_NAME,
-                        "_id=?",
+                        MovieEntry._ID + "=?",
                         new String[]{id});
                 break;
             default:
@@ -167,7 +177,7 @@ public class MovieContentProvider extends ContentProvider
         return 0;
     }
 
-    public static UriMatcher buildUriMatcher()
+    private static UriMatcher buildUriMatcher()
     {
         // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -179,9 +189,6 @@ public class MovieContentProvider extends ContentProvider
          */
         uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.PATH_MOVIES, MOVIES);
         uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.PATH_MOVIES + "/#", MOVIES_WITH_ID);
-        uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.PATH_MOVIES + "/#", MOVIES_WITH_TITLE);
-        uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.PATH_MOVIES + "/#", MOVIES_WITH_RATING);
-        uriMatcher.addURI(MovieContract.AUTHORITY, MovieContract.PATH_MOVIES + "/#", MOVIES_WITH_RELEASE_DATE);
 
         return uriMatcher;
     }

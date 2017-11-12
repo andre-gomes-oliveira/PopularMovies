@@ -5,6 +5,17 @@
     android:layout_height="wrap_content">
 
         <ImageButton
+            android:id="@+id/ib_share"
+            style="@style/Button"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/accessibility_share_image"
+            android:onClick="shareMovieTrailer"
+            android:src="@drawable/ic_share_black_24px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
             android:id="@+id/ib_play"
             style="@style/Button"
             android:layout_marginStart="8dp"
@@ -12,7 +23,7 @@
             android:contentDescription="@string/accessibility_play_image"
             android:onClick="playMovieTrailer"
             android:src="@drawable/ic_play_arrow_black_24px"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ib_share"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -28,4 +39,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ib_play"
             app:layout_constraintTop_toBottomOf="@+id/ib_play" />
+
+
 </android.support.constraint.ConstraintLayout>

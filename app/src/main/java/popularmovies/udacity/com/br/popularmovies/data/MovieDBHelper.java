@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import popularmovies.udacity.com.br.popularmovies.data.MovieContract.MovieEntry;
 
-public class MovieDBHelper extends SQLiteOpenHelper
+class MovieDBHelper extends SQLiteOpenHelper
 {
     private static final String DATABASE_NAME = "moviesDb.db";
     private static final int VERSION = 1;
@@ -22,9 +22,9 @@ public class MovieDBHelper extends SQLiteOpenHelper
         final String CREATE_TABLE = "CREATE TABLE "  + MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID               + " INTEGER PRIMARY KEY, " +
                 MovieEntry.COLUMN_TITLE      + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_POSTERPATH      + " TEXT NOT NULL, " +
+                MovieEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
                 MovieEntry.COLUMN_SYNOPSIS      + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_RATING    + " INTEGER NOT NULL " +
+                MovieEntry.COLUMN_RATING    + " INTEGER NOT NULL, " +
                 MovieEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL);";
 
         sqLiteDatabase.execSQL(CREATE_TABLE);

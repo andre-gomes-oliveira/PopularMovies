@@ -80,21 +80,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieViewHol
         @Override
         public void onClick(View v)
         {
-            mMovieClickListener.onMovieItemClick(mMovies[getAdapterPosition()]);
+            if(getAdapterPosition() < mMovies.length)
+                mMovieClickListener.onMovieItemClick(mMovies[getAdapterPosition()]);
         }
 
         void bind (int index, Context context)
         {
-            Movie clickedMovie = mMovies[index];
-            String picassoURL = context.getString(R.string.base_picasso_url)
-                    + clickedMovie.getMoviePosterPath();
+            if (index < mMovies.length)
+            {
+                Movie clickedMovie = mMovies[index];
 
-            Log.v(TAG, "Picasso URL " + picassoURL);
-            Picasso.with(context)
-                    .load(picassoURL)
-                    .placeholder(R.drawable.ic_error_white_24px)
-                    .error(R.drawable.ic_photo_size_select_actual_white_24px)
-                    .into(posterView);
+                if (clickedMovie != null)
+                {
+                    String picassoURL = context.getString(R.string.base_picasso_url)
+                            + clickedMovie.getPosterPath();
+
+                    Log.v(TAG, "Picasso URL " + picassoURL);
+                    Picasso.with(context)
+                            .load(picassoURL)
+                            .placeholder(R.drawable.ic_error_white_24px)
+                            .error(R.drawable.ic_photo_size_select_actual_white_24px)
+                            .into(posterView);
+                }
+            }
         }
     }
 }

@@ -8,10 +8,4 @@ public class Extra
     {
     }
 
-    public Extra(String id)
-    {
-        this.mId = id;
-    }
-
-    public String getId() { return mId; }
 }

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 /**
  * Class containing a few functions used to deal with internet requests.
- * Based on functions using during previous tasks.
+ * Based on functions used during previous lessons.
  */
 
 public final class NetworkUtilities

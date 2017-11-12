@@ -17,4 +17,5 @@
     <string name="details_trailers">Trailers:</string>
     <string name="details_reviews">Resenhas:</string>
     <string name="accessibility_play_image">Botão utilizado para exibir o trailer selecionado.</string>
+    <string name="accessibility_share_image">Um botão utilizado para compartilhar a URL do trailer.</string>
 </resources>

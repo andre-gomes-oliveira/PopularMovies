@@ -1,7 +1,9 @@
 package popularmovies.udacity.com.br.popularmovies;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import popularmovies.udacity.com.br.popularmovies.adapters.MovieAdapter;
+import popularmovies.udacity.com.br.popularmovies.data.MovieContract;
 import popularmovies.udacity.com.br.popularmovies.model.Movie;
 import popularmovies.udacity.com.br.popularmovies.utilities.JSONUtilities;
 import popularmovies.udacity.com.br.popularmovies.utilities.NetworkUtilities;
@@ -74,12 +77,15 @@ public class MainActivity
     @Override
     public void onMovieItemClick(Movie clickedMovie)
     {
-        Context context = this;
-        Class destinationClass = MovieDetailsActivity.class;
-        Intent intentToStartDetailActivity = new Intent(context, destinationClass);
+        if (clickedMovie != null)
+        {
+            Context context = this;
+            Class destinationClass = MovieDetailsActivity.class;
+            Intent intentToStartDetailActivity = new Intent(context, destinationClass);
 
-        intentToStartDetailActivity.putExtra(getString(R.string.movie_details_intent), clickedMovie);
-        startActivity(intentToStartDetailActivity);
+            intentToStartDetailActivity.putExtra(getString(R.string.movie_details_intent), clickedMovie);
+            startActivity(intentToStartDetailActivity);
+        }
     }
 
     @Override
@@ -89,14 +95,14 @@ public class MainActivity
         inflater.inflate(R.menu.sort, menu);
 
         MenuItem item = menu.findItem(R.id.sort_functions_spinner);
-        Spinner mSpinner = (Spinner) item.getActionView();
+        Spinner spinner = (Spinner) item.getActionView();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sort_options_labels, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mSpinner.setAdapter(adapter);
-        mSpinner.setOnItemSelectedListener(this);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         return true;
     }
 
@@ -147,14 +153,63 @@ public class MainActivity
      */
     private void loadMoviesData(String endPoint)
     {
-        showMoviePostersView();
+        if(endPoint.equals(getString(R.string.sort_option_favorites_value)))
+            loadFavorites();
+        else
+            new FetchMoviesDataTask().execute(endPoint);
+    }
 
-        new FetchMoviesDataTask().execute(endPoint);
+    private void loadFavorites()
+    {
+        /* Fetching the list of favorite movies from the database*/
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+
+        ContentResolver resolver = getContentResolver();
+        Cursor cursor = resolver.query(MovieContract.MovieEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+
+        if (cursor != null)
+        {
+            if(cursor.getCount() > 0)
+            {
+                cursor.moveToFirst();
+                Movie[] movies = new Movie[cursor.getCount()];
+                int index = 0;
+
+                while (cursor.moveToNext())
+                {
+                    int id = cursor.getInt(MovieContract.MovieEntry.INDEX_ID);
+                    String title = cursor.getString(MovieContract.MovieEntry.INDEX_TITLE);
+                    String posterPath = cursor.getString(MovieContract.MovieEntry.INDEX_POSTER_PATH);
+                    String synopsis = cursor.getString(MovieContract.MovieEntry.INDEX_SYNOPSIS);
+                    int rating = cursor.getInt(MovieContract.MovieEntry.INDEX_RATING);
+                    String releaseDate = cursor.getString(MovieContract.MovieEntry.INDEX_RELEASE_DATE);
+
+                    movies[index] = new Movie(id, title, posterPath, synopsis, rating, releaseDate);
+
+                    ++index;
+                }
+
+                showMoviePostersView();
+                mMovieAdapter.setMovies(movies);
+                mRecyclerView.setAdapter(mMovieAdapter);
+            }
+            else
+                showErrorMessage();
+
+            cursor.close();
+        }
+        else
+            showErrorMessage();
+
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
     }
 
     private class FetchMoviesDataTask extends AsyncTask<String, Void, Movie[]>
     {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -195,9 +250,9 @@ public class MainActivity
                 showMoviePostersView();
                 mMovieAdapter.setMovies(popularMovies);
                 mRecyclerView.setAdapter(mMovieAdapter);
-            } else {
-                showErrorMessage();
             }
+            else
+                showErrorMessage();
         }
     }
 }

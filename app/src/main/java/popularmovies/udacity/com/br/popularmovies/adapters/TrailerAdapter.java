@@ -16,7 +16,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.trailerV
 {
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
-    private int mNumberTrailers;
+    private final int mNumberTrailers;
     private Trailer[] mTrailers;
 
     @Override
@@ -56,14 +56,16 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.trailerV
 
     class trailerViewHolder extends RecyclerView.ViewHolder
     {
-        ImageButton playButton;
+        final ImageButton shareButton;
+        final ImageButton playButton;
         final TextView trailerDescView;
 
         trailerViewHolder(View itemView)
         {
             super(itemView);
-            trailerDescView = itemView.findViewById(R.id.tv_trailer_description);
+            shareButton = itemView.findViewById(R.id.ib_share);
             playButton = itemView.findViewById(R.id.ib_play);
+            trailerDescView = itemView.findViewById(R.id.tv_trailer_description);
         }
 
         void bind (int index)
@@ -71,6 +73,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.trailerV
             Trailer boundTrailer = mTrailers[index];
             trailerDescView.setText(boundTrailer.getName());
 
+            shareButton.setTag(boundTrailer.getKey());
             playButton.setTag(boundTrailer.getKey());
 
             Log.d(TAG, boundTrailer.getId());

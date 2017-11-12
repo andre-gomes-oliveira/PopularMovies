@@ -24,10 +24,5 @@ public class Trailer extends Extra
         return mName;
     }
 
-    public String getType()
-    {
-        return mType;
-    }
-
     public String getKey() { return mKey; }
 }
