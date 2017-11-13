@@ -5,70 +5,85 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="MovieDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_details"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_details_title"
+            style="@style/DetailTitleTheme"
+            tools:text="Movie Title" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/green_details">
-            <TextView
-                android:id="@+id/tv_details_title"
-                style="@style/DetailTitleTheme"
-                tools:text="Movie Title" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_details_poster"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/accessibility_poster_thumbnail"
+                android:cropToPadding="false" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-                <ImageView
-                    android:id="@+id/iv_details_poster"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/accessibility_poster_thumbnail"
-                    android:cropToPadding="false" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        style="@style/detailSubtitleTheme"
-                        android:text="@string/details_release_date" />
-                    <TextView
-                        style="@style/detailTextTheme"
-                        android:id="@+id/tv_details_date"/>
-                    <TextView
-                        style="@style/detailSubtitleTheme"
-                        android:text="@string/details_rating" />
-                    <TextView
-                        style="@style/detailTextTheme"
-                        android:id="@+id/tv_details_rating" />
+                android:orientation="vertical">
 
-                    <ImageButton
-                        style="@style/Button"
-                        android:id="@+id/ib_favorite"
-                        android:contentDescription="@string/accessibility_favorite_image"
-                        android:src="@drawable/ic_favorite_white_24px"
-                        android:onClick="addFavorite"/>
-                </LinearLayout>
+                <TextView
+                    style="@style/detailSubtitleTheme"
+                    android:text="@string/details_release_date" />
+
+                <TextView
+                    android:id="@+id/tv_details_date"
+                    style="@style/detailTextTheme" />
+
+                <TextView
+                    style="@style/detailSubtitleTheme"
+                    android:text="@string/details_rating" />
+
+                <TextView
+                    android:id="@+id/tv_details_rating"
+                    style="@style/detailTextTheme" />
+
+                <ImageButton
+                    android:id="@+id/ib_favorite"
+                    style="@style/Button"
+                    android:contentDescription="@string/accessibility_favorite_image"
+                    android:onClick="addFavorite"
+                    android:src="@drawable/ic_favorite_white_24px" />
             </LinearLayout>
-            <TextView
-                style="@style/detailSubtitleTheme"
-                android:text="@string/details_synopsis" />
-            <TextView
-                style="@style/detailTextTheme"
-                android:id="@+id/tv_details_synopsis" />
-            <TextView
-                style="@style/detailSubtitleTheme"
-                android:text="@string/details_trailers" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_trailers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                style="@style/detailSubtitleTheme"
-                android:text="@string/details_reviews" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_reviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
+
+        <TextView
+            style="@style/detailSubtitleTheme"
+            android:text="@string/details_synopsis" />
+
+        <TextView
+            android:id="@+id/tv_details_synopsis"
+            style="@style/detailTextTheme" />
+
+        <TextView
+            style="@style/detailSubtitleTheme"
+            android:text="@string/details_trailers" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_trailers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/detailSubtitleTheme"
+            android:text="@string/details_reviews" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </ScrollView>

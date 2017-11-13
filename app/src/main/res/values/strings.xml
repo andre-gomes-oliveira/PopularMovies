@@ -5,7 +5,7 @@
     <string name="error_option_message">Unknown sorting criteria, please try another one.</string>
     <string name="favorite_inserted_message">Movie inserted in the favorites list.</string>
     <string name="favorite_removed_message">Movie removed from the favorites list.</string>
-	
+
     <!-- Sorting options, both labels and values -->
     <string name="sort_spinner_title">ActionBar Spinner</string>
     <string name="sort_option_popularity_label">Popular</string>
@@ -25,15 +25,17 @@
     <string name="accessibility_favorite_image">A button used to add the movie to the list of favorites.</string>
     <string name="accessibility_play_image">A button used to play the selected movie trailer.</string>
     <string name="accessibility_share_image">A button used to share the URL of the trailer.</string>
-	
+
     <!-- Additional values to be used in code, not shown ot the user -->
     <string name="base_picasso_url" translatable="false">http://image.tmdb.org/t/p/w185/</string>
     <string name="movie_details_intent" translatable="false">Movie_Intent</string>
     <string name="youtube_intent" translatable="false">vnd.youtube:</string>
-	<string name="youtube_url" translatable="false">http://www.youtube.com/watch?v=</string>
+    <string name="youtube_url" translatable="false">http://www.youtube.com/watch?v=</string>
     <string name="request_trailers_url" translatable="false">/videos</string>
     <string name="request_reviews_url" translatable="false">/reviews</string>
     <string name="bundle_id" translatable="false">request_id</string>
     <string name="bundle_reviews" translatable="false">request_reviews</string>
     <string name="bundle_trailers" translatable="false">request_trailers</string>
+    <string name="bundle_recycler_position" translatable="false">movie_grid_position</string>
+    <string name="bundle_spinner_position" translatable="false">sort_option_position</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,15 +37,20 @@ public class MainActivity
         implements  MovieAdapter.movieClickListener,
         AdapterView.OnItemSelectedListener
 {
-
     /* RecyclerView that will be used to circle through the movie posters */
     private RecyclerView mRecyclerView;
+
+    /* Layout manager used by the RecyclerView*/
+    private GridLayoutManager mLayoutManager;
 
     /* TextView used to display error messages when the connection fails */
     private TextView mErrorMessageDisplay;
 
     /* ProgressBar used to inform the user that data is being fetched, if necessary */
     private ProgressBar mLoadingIndicator;
+
+    /* The spinner that contains the sorting options */
+    private Spinner mSpinner;
 
     /* The Adapter that will fetch the data and bind them to the views*/
     public static final int num_mov_posters = 18;
@@ -63,15 +69,54 @@ public class MainActivity
 
         /*Creating and adjusting the layout manager
           the movie posters will be displayed in 2 columns, like the mock-up.*/
-        GridLayoutManager layoutManager
-                = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager = new GridLayoutManager(this, 2,
+                LinearLayoutManager.VERTICAL, false);
 
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
         mMovieAdapter = new  MovieAdapter(this);
 
-        loadMoviesData(getString(R.string.sort_option_popularity_value));
+        if(savedInstanceState != null)
+        {
+            Parcelable recyclerLayoutState = savedInstanceState.getParcelable
+                    (getString(R.string.bundle_recycler_position));
+
+            mLayoutManager.onRestoreInstanceState(recyclerLayoutState);
+
+        }
+        else
+            loadMoviesData(getString(R.string.sort_option_popularity_value));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sort, menu);
+
+        MenuItem item = menu.findItem(R.id.sort_functions_spinner);
+        mSpinner = (Spinner) item.getActionView();
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sort_options_labels, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(this);
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(getString(R.string.bundle_recycler_position),
+                mLayoutManager.onSaveInstanceState());
+
+        outState.putInt(getString(R.string.bundle_spinner_position),
+                mSpinner.getSelectedItemPosition());
     }
 
     @Override
@@ -86,24 +131,6 @@ public class MainActivity
             intentToStartDetailActivity.putExtra(getString(R.string.movie_details_intent), clickedMovie);
             startActivity(intentToStartDetailActivity);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.sort, menu);
-
-        MenuItem item = menu.findItem(R.id.sort_functions_spinner);
-        Spinner spinner = (Spinner) item.getActionView();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sort_options_labels, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-        return true;
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
