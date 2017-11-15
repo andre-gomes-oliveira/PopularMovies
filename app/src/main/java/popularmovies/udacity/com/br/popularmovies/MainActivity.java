@@ -51,6 +51,7 @@ public class MainActivity
 
     /* The spinner that contains the sorting options */
     private Spinner mSpinner;
+    private int mPosition;
 
     /* The Adapter that will fetch the data and bind them to the views*/
     public static final int num_mov_posters = 18;
@@ -90,6 +91,26 @@ public class MainActivity
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(getString(R.string.bundle_recycler_position),
+                mLayoutManager.onSaveInstanceState());
+
+        outState.putInt(getString(R.string.bundle_spinner_position),
+                mSpinner.getSelectedItemPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+        mPosition = savedInstanceState.getInt(
+                getString(R.string.bundle_spinner_position));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
@@ -104,19 +125,8 @@ public class MainActivity
 
         mSpinner.setAdapter(adapter);
         mSpinner.setOnItemSelectedListener(this);
+        mSpinner.setSelection(mPosition);
         return true;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable(getString(R.string.bundle_recycler_position),
-                mLayoutManager.onSaveInstanceState());
-
-        outState.putInt(getString(R.string.bundle_spinner_position),
-                mSpinner.getSelectedItemPosition());
     }
 
     @Override

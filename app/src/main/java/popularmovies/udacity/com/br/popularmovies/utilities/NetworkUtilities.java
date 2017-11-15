@@ -17,7 +17,6 @@ import java.util.Scanner;
 
 public final class NetworkUtilities
 {
-
     private static final String TAG = NetworkUtilities.class.getSimpleName();
 
     /* Base URLs*/
@@ -32,9 +31,12 @@ public final class NetworkUtilities
                 .build();
 
         URL url = null;
-        try {
+        try
+        {
             url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             e.printStackTrace();
         }
 
@@ -61,11 +63,10 @@ public final class NetworkUtilities
             scanner.useDelimiter("\\A");
 
             boolean hasInput = scanner.hasNext();
-            if (hasInput) {
+            if (hasInput)
                 return scanner.next();
-            } else {
+            else
                 return null;
-            }
         }
         finally
         {
