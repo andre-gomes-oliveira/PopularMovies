@@ -1,4 +1,4 @@
-# Android Nanodegree - PopularMovies Projext
+# Android Nanodegree - PopularMovies Projet
 
 A movie list app that aims to help find the best movies to watch at the moment.
 
